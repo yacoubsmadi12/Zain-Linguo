@@ -1,0 +1,63 @@
+You are a professional web app generator.  
+I want you to create a **complete responsive web platform** called **Daily English Word**.  
+
+### Concept:
+The website teaches users **one powerful English word every day** with examples, pronunciation, and a short quiz.  
+It must have a **modern UI/UX**, clean typography, light/dark themes, and be fully mobile-friendly.  
+The site should be **ready for Google AdSense ads** (with ad slots in header, sidebar, and between content).  
+
+### Pages & Features:
+1. **Home Page**
+   - Display today’s word (with IPA phonetics, part of speech, CEFR level).
+   - Show short definition, synonyms, antonyms.
+   - Provide 2–3 usage examples (English + Arabic translation).
+   - Section for a "Daily Tip" about how to use the word.
+   - Place AdSense ad slots (top banner + in-content).
+
+2. **Quiz Page**
+   - Daily mini quiz (3–5 multiple-choice questions about today’s or previous words).
+   - User selects answers and sees instant feedback + explanations.
+   - Track user’s daily streak and show progress.
+   - Place AdSense ad slot in sidebar.
+
+3. **Archive Page**
+   - List of previous “Word of the Day” entries with pagination.
+   - Clicking a word shows its details (definition + examples + quiz).
+   - Place small ad unit between word entries.
+
+4. **Profile / Progress**
+   - Show user streak, total words learned, and points from quizzes.
+   - Gamification: badges for 7 days, 30 days, 100 days streak.
+   - Option to toggle light/dark theme.
+
+5. **About / Contact**
+   - Brief about the platform (powered by Gemini AI).
+   - Contact form for suggestions or feedback.
+
+### Functionality:
+- The site must **fetch “Word of the Day” from Gemini API** automatically, based on the current date.  
+- Store last visited date and streak in **local storage** (no Firebase SDK).  
+- Ensure **deterministic prompts** to Gemini (same date → same word).  
+- Support **English UI** but include Arabic translations inside examples.  
+
+### Design:
+- Modern, clean, minimalist (similar to Duolingo + Fluent UI).
+- Rounded cards, shadows, smooth transitions.
+- Use a grid layout (word card + quiz card).
+- Light/Dark toggle button in header.
+- Responsive: must look great on mobile and desktop.
+
+### Monetization:
+- Integrate **Google AdSense placeholders** in multiple positions:
+  - Top header banner
+  - In-article ad under the word definition
+  - Sidebar ad in quiz page
+  - Small ads between archive items
+
+### Requirements:
+- Generate all pages, routes, and components.
+- Use HTML/CSS/JS (or Next.js/React if supported).
+- Include comments where I should insert my AdSense `ca-pub` and `slot` IDs.
+- Make it fast, SEO-friendly, and lightweight.
+
+End of prompt.
