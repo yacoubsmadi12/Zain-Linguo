@@ -23,10 +23,10 @@ export default function Archive() {
   const [, setLocation] = useLocation();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterLevel, setFilterLevel] = useState("");
+  const [filterLevel, setFilterLevel] = useState("all");
 
   const { data: archiveData, isLoading, error } = useQuery<ArchiveResponse>({
-    queryKey: ["/api/words/archive", { page: currentPage, limit: 12 }],
+    queryKey: [`/api/words/archive?page=${currentPage}&limit=12`],
   });
 
   // Filter words based on search and level filter
@@ -35,7 +35,7 @@ export default function Archive() {
       word.word.toLowerCase().includes(searchQuery.toLowerCase()) ||
       word.definition.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesLevel = !filterLevel || word.cefr === filterLevel;
+    const matchesLevel = !filterLevel || filterLevel === "all" || word.cefr === filterLevel;
     
     return matchesSearch && matchesLevel;
   }) || [];
@@ -102,7 +102,7 @@ export default function Archive() {
                 <SelectValue placeholder="All Levels" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Levels</SelectItem>
+                <SelectItem value="all">All Levels</SelectItem>
                 <SelectItem value="A1">A1 - Beginner</SelectItem>
                 <SelectItem value="A2">A2 - Elementary</SelectItem>
                 <SelectItem value="B1">B1 - Intermediate</SelectItem>
@@ -155,7 +155,7 @@ export default function Archive() {
       </div>
 
       {/* No Results */}
-      {filteredWords.length === 0 && (searchQuery || filterLevel) && (
+      {filteredWords.length === 0 && (searchQuery || (filterLevel && filterLevel !== "all")) && (
         <div className="text-center py-12">
           <p className="text-muted-foreground">
             No words found matching your search criteria.
@@ -164,7 +164,7 @@ export default function Archive() {
             variant="outline"
             onClick={() => {
               setSearchQuery("");
-              setFilterLevel("");
+              setFilterLevel("all");
             }}
             className="mt-4"
             data-testid="clear-filters"
@@ -175,7 +175,7 @@ export default function Archive() {
       )}
 
       {/* Pagination */}
-      {archiveData.words.length > 0 && !searchQuery && !filterLevel && (
+      {archiveData.words.length > 0 && !searchQuery && (!filterLevel || filterLevel === "all") && (
         <div className="flex justify-center items-center space-x-2">
           <Button
             variant="outline"
