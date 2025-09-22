@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { UserProgress } from "@shared/schema";
 
 const defaultProgress: UserProgress = {
-  streak: 0,
+  streak: 1, // Start with 1 for first visit
   totalWords: 0,
   averageScore: 0,
   lastVisit: new Date().toDateString(),
@@ -55,9 +55,11 @@ export function useUserProgress() {
       ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length)
       : 0;
 
+    // Also increment total words learned when completing a quiz
     updateProgress({
       quizScores: newScores,
       averageScore,
+      totalWords: Math.max(progress.totalWords, scores.length),
     });
   };
 
@@ -102,7 +104,7 @@ export function useUserProgress() {
   useEffect(() => {
     checkDailyStreak();
     checkAchievements();
-  }, []);
+  }, [progress.streak, progress.totalWords, progress.averageScore]);
 
   return {
     progress,
