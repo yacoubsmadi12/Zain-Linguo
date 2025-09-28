@@ -3,65 +3,100 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(222.2 84% 4.9%);
+  --background: hsl(210 100% 99%);
+  --foreground: hsl(222 20% 11%);
   --card: hsl(0 0% 100%);
-  --card-foreground: hsl(222.2 84% 4.9%);
+  --card-foreground: hsl(222 20% 11%);
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(222.2 84% 4.9%);
-  --primary: hsl(221.2 83.2% 53.3%);
-  --primary-foreground: hsl(210 40% 98%);
-  --secondary: hsl(210 40% 96%);
-  --secondary-foreground: hsl(222.2 84% 4.9%);
+  --popover-foreground: hsl(222 20% 11%);
+  
+  /* Zain Brand Colors - Educational Theme */
+  --primary: hsl(248 95% 70%); /* Vibrant Zain Purple */
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(200 100% 97%);
+  --secondary-foreground: hsl(222 20% 11%);
+  
+  /* Educational Colors */
+  --accent: hsl(43 100% 88%); /* Warm yellow accent */
+  --accent-foreground: hsl(25 100% 25%);
   --muted: hsl(210 40% 96%);
   --muted-foreground: hsl(215.4 16.3% 46.9%);
-  --accent: hsl(210 40% 96%);
-  --accent-foreground: hsl(222.2 84% 4.9%);
-  --destructive: hsl(0 84.2% 60.2%);
-  --destructive-foreground: hsl(210 40% 98%);
-  --border: hsl(214.3 31.8% 91.4%);
-  --input: hsl(214.3 31.8% 91.4%);
-  --ring: hsl(221.2 83.2% 53.3%);
-  --success: hsl(142.1 76.2% 36.3%);
-  --warning: hsl(32.6 94.6% 43.7%);
+  
+  /* Status Colors */
+  --success: hsl(142 71% 45%); /* Learning green */
+  --success-foreground: hsl(0 0% 100%);
+  --warning: hsl(43 89% 58%); /* Bright educational yellow */
+  --warning-foreground: hsl(25 100% 25%);
+  --destructive: hsl(0 72% 58%);
+  --destructive-foreground: hsl(0 0% 100%);
+  
+  /* Interactive Elements */
+  --border: hsl(214 31% 91%);
+  --input: hsl(214 31% 91%);
+  --ring: hsl(248 95% 70%);
+  
+  /* Educational Enhancements */
+  --education-blue: hsl(212 100% 65%);
+  --education-green: hsl(142 71% 45%);
+  --education-yellow: hsl(43 89% 58%);
+  --education-purple: hsl(248 95% 70%);
+  --streak-flame: hsl(25 95% 53%);
+  --quiz-correct: hsl(142 71% 45%);
+  --quiz-incorrect: hsl(0 72% 58%);
+  
   --radius: 0.75rem;
-  --font-sans: Inter, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: Menlo, monospace;
+  --font-sans: Inter, 'Segoe UI', sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-mono: 'Fira Code', 'SF Mono', monospace;
 }
 
 .dark {
-  --background: hsl(222.2 84% 4.9%);
+  --background: hsl(220 27% 8%);
   --foreground: hsl(210 40% 98%);
-  --card: hsl(222.2 84% 4.9%);
+  --card: hsl(220 27% 10%);
   --card-foreground: hsl(210 40% 98%);
-  --popover: hsl(222.2 84% 4.9%);
+  --popover: hsl(220 27% 10%);
   --popover-foreground: hsl(210 40% 98%);
-  --primary: hsl(217.2 91.2% 59.8%);
-  --primary-foreground: hsl(222.2 84% 4.9%);
-  --secondary: hsl(217.2 32.6% 17.5%);
+  
+  /* Zain Brand Colors - Dark Mode */
+  --primary: hsl(248 95% 75%); /* Brighter purple for dark mode */
+  --primary-foreground: hsl(220 27% 8%);
+  --secondary: hsl(217 32% 15%);
   --secondary-foreground: hsl(210 40% 98%);
-  --muted: hsl(217.2 32.6% 17.5%);
-  --muted-foreground: hsl(215 20.2% 65.1%);
-  --accent: hsl(217.2 32.6% 17.5%);
-  --accent-foreground: hsl(210 40% 98%);
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(210 40% 98%);
-  --border: hsl(217.2 32.6% 17.5%);
-  --input: hsl(217.2 32.6% 17.5%);
-  --ring: hsl(224.3 76.3% 94.0%);
-  --success: hsl(142.1 70.6% 45.3%);
-  --warning: hsl(32.6 94.6% 43.7%);
+  
+  /* Educational Colors - Dark Mode */
+  --accent: hsl(43 89% 25%); /* Warmer yellow for dark mode */
+  --accent-foreground: hsl(43 100% 88%);
+  --muted: hsl(217 32% 15%);
+  --muted-foreground: hsl(215 20% 65%);
+  
+  /* Status Colors - Dark Mode */
+  --success: hsl(142 71% 55%); /* Brighter green for dark mode */
+  --success-foreground: hsl(220 27% 8%);
+  --warning: hsl(43 89% 68%); /* Brighter yellow for dark mode */
+  --warning-foreground: hsl(25 100% 15%);
+  --destructive: hsl(0 72% 65%);
+  --destructive-foreground: hsl(220 27% 8%);
+  
+  /* Interactive Elements - Dark Mode */
+  --border: hsl(217 32% 15%);
+  --input: hsl(217 32% 15%);
+  --ring: hsl(248 95% 75%);
+  
+  /* Educational Enhancements - Dark Mode */
+  --education-blue: hsl(212 100% 75%);
+  --education-green: hsl(142 71% 55%);
+  --education-yellow: hsl(43 89% 68%);
+  --education-purple: hsl(248 95% 75%);
+  --streak-flame: hsl(25 95% 63%);
+  --quiz-correct: hsl(142 71% 55%);
+  --quiz-incorrect: hsl(0 72% 65%);
 }
 
-/* Custom animations */
+/* Educational Animations */
 @keyframes bounce-subtle {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-2px); }
-}
-
-.animate-bounce-subtle {
-  animation: bounce-subtle 2s infinite;
 }
 
 @keyframes fade-in-up {
@@ -75,9 +110,171 @@
   }
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out;
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
+@keyframes flame-glow {
+  0%, 100% { 
+    filter: drop-shadow(0 0 4px hsl(var(--streak-flame) / 0.6));
+    transform: scale(1);
+  }
+  50% { 
+    filter: drop-shadow(0 0 12px hsl(var(--streak-flame) / 0.8));
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulse-badge {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px hsl(var(--primary) / 0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+@keyframes progress-fill {
+  0% { width: 0%; }
+  100% { width: var(--progress-width, 100%); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes word-highlight {
+  0% { background-size: 0% 100%; }
+  100% { background-size: 100% 100%; }
+}
+
+@keyframes celebration {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-5deg); }
+  50% { transform: scale(1.2) rotate(5deg); }
+  75% { transform: scale(1.1) rotate(-2deg); }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation Classes */
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
+}
+
+.animate-fade-in-left {
+  animation: fade-in-left 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease-out;
+}
+
+.animate-flame-glow {
+  animation: flame-glow 2s ease-in-out infinite;
+}
+
+.animate-pulse-badge {
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+.animate-shake {
+  animation: shake 0.6s ease-in-out;
+}
+
+.animate-progress-fill {
+  animation: progress-fill 1.5s ease-out forwards;
+}
+
+.animate-typewriter {
+  overflow: hidden;
+  border-right: 2px solid hsl(var(--primary));
+  white-space: nowrap;
+  animation: typewriter 2s steps(40) forwards;
+}
+
+.animate-word-highlight {
+  background: linear-gradient(120deg, hsl(var(--education-yellow) / 0.3) 0%, 
+                              hsl(var(--education-yellow) / 0.3) 100%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  animation: word-highlight 1s ease-out forwards;
+}
+
+.animate-celebration {
+  animation: celebration 0.8s ease-in-out;
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px hsl(var(--primary) / 0.2);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.3));
+}
+
+.hover-scale {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Page Transitions */
+.page-transition {
+  animation: fade-in-up 0.4s ease-out;
+}
+
+.stagger-children > * {
+  opacity: 0;
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
 
 
 /* Utility classes for text truncation */

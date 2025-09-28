@@ -1,4 +1,5 @@
 import { Switch, Route } from "wouter";
+import { useState, useEffect } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,6 +9,7 @@ import { AuthProvider } from "@/hooks/use-auth"; // Authentication - based on ja
 import { ProtectedRoute } from "@/lib/protected-route";
 import { Header } from "@/components/layout/header";
 import { Sidebar } from "@/components/layout/sidebar";
+import { SplashScreen } from "@/components/ui/splash-screen";
 import Home from "@/pages/home";
 import Quiz from "@/pages/quiz";
 import Archive from "@/pages/archive";
@@ -31,24 +33,45 @@ function Router() {
 }
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    // Check if user has seen splash before
+    const hasSeenSplash = localStorage.getItem('zain-linguo-splash-seen');
+    if (hasSeenSplash) {
+      setShowSplash(false);
+    }
+  }, []);
+
+  const handleSplashComplete = () => {
+    localStorage.setItem('zain-linguo-splash-seen', 'true');
+    setShowSplash(false);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ThemeProvider>
           <TooltipProvider>
             <Toaster />
-          <div className="min-h-screen bg-background text-foreground font-sans antialiased transition-colors duration-300">
-            <Header />
-            <main className="container mx-auto px-4 py-8 max-w-7xl">
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                <div className="lg:col-span-3">
-                  <Router />
+            
+            {/* Splash Screen */}
+            {showSplash && (
+              <SplashScreen onComplete={handleSplashComplete} />
+            )}
+            
+            <div className={`min-h-screen bg-background text-foreground font-sans antialiased transition-colors duration-300 ${showSplash ? 'overflow-hidden' : ''}`}>
+              <Header />
+              <main className="container mx-auto px-4 py-8 max-w-7xl page-transition">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                  <div className="lg:col-span-3">
+                    <Router />
+                  </div>
+                  <div className="lg:col-span-1">
+                    <Sidebar />
+                  </div>
                 </div>
-                <div className="lg:col-span-1">
-                  <Sidebar />
-                </div>
-              </div>
-            </main>
+              </main>
             
             {/* Footer */}
             <footer className="bg-muted/30 border-t border-border mt-16">
@@ -63,11 +86,6 @@ function App() {
                   <p className="text-muted-foreground text-sm mb-4">
                     Powered by AI • Corporate Language Learning Platform
                   </p>
-                  <div className="flex justify-center space-x-6 text-sm text-muted-foreground">
-                    <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
-                    <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
-                    <a href="#" className="hover:text-foreground transition-colors">Support</a>
-                  </div>
                   <p className="text-xs text-muted-foreground mt-4">
                     © 2024 Zain Linguo - Zain Jordan. All rights reserved.
                   </p>

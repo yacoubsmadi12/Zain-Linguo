@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { AnimatedCard } from "@/components/ui/animated-card";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Volume2, Play } from "lucide-react";
+import { Volume2, Play, BookOpen, Lightbulb } from "lucide-react";
 import { formatDate } from "@/lib/date-utils";
 import { Word } from "@shared/schema";
 
@@ -31,39 +33,45 @@ export function WordCard({ word, showDate = true, onTakeQuiz, onViewArchive }: W
   };
 
   return (
-    <Card className="shadow-lg">
+    <AnimatedCard animation="fade-in-up" className="shadow-xl hover-lift bg-gradient-to-br from-card via-card to-secondary/20 border-2 border-[hsl(var(--education-purple)/0.2)]">
       <CardContent className="p-8">
-        <div className="text-center mb-6">
+        <div className="text-center mb-8">
           {showDate && (
-            <div className="text-sm text-muted-foreground mb-2" data-testid="word-date">
-              {formatDate(word.date)}
+            <div className="text-sm text-[hsl(var(--education-purple))] mb-4 font-medium animate-fade-in-up" data-testid="word-date">
+              📅 {formatDate(word.date)}
             </div>
           )}
-          <h2 className="text-4xl font-bold text-primary mb-4" data-testid="word-text">
-            {word.word}
-          </h2>
+          
+          {/* Large bold word with animated underline */}
+          <div className="relative mb-6">
+            <h2 className="text-5xl font-black bg-gradient-to-r from-[hsl(var(--education-purple))] via-[hsl(var(--primary))] to-[hsl(var(--education-blue))] bg-clip-text text-transparent mb-2 animate-word-highlight" data-testid="word-text">
+              {word.word}
+            </h2>
+            <div className="h-1 bg-gradient-to-r from-[hsl(var(--education-purple))] to-[hsl(var(--education-blue))] mx-auto rounded-full animate-progress-fill" style={{ width: '60%' }}></div>
+          </div>
           
           {/* Phonetics and Part of Speech */}
-          <div className="flex items-center justify-center space-x-4 mb-4">
-            <div className="flex items-center space-x-2">
-              <Button
+          <div className="flex items-center justify-center space-x-4 mb-6">
+            <div className="flex items-center space-x-3 bg-gradient-to-r from-[hsl(var(--education-purple)/0.1)] to-[hsl(var(--primary)/0.1)] px-4 py-2 rounded-full">
+              <AnimatedButton
                 variant="default"
                 size="icon"
-                className="rounded-full"
+                animation="hover-glow"
+                className="rounded-full bg-gradient-to-r from-[hsl(var(--education-purple))] to-[hsl(var(--primary))] animate-pulse-badge"
                 onClick={playPronunciation}
                 disabled={isPlaying}
                 data-testid="pronunciation-button"
               >
-                {isPlaying ? <Play className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-              </Button>
-              <span className="text-muted-foreground font-mono" data-testid="word-phonetic">
+                {isPlaying ? <Play className="w-5 h-5 animate-spin" /> : <Volume2 className="w-5 h-5" />}
+              </AnimatedButton>
+              <span className="text-[hsl(var(--education-purple))] font-mono font-bold text-lg" data-testid="word-phonetic">
                 {word.phonetic}
               </span>
             </div>
-            <Badge variant="secondary" data-testid="word-pos">
+            <Badge variant="secondary" className="bg-[hsl(var(--education-blue)/0.2)] text-[hsl(var(--education-blue))] border-[hsl(var(--education-blue))] hover-scale" data-testid="word-pos">
               {word.partOfSpeech}
             </Badge>
-            <Badge variant="outline" data-testid="word-cefr">
+            <Badge variant="outline" className="bg-[hsl(var(--education-yellow)/0.2)] text-[hsl(var(--warning))] border-[hsl(var(--warning))] hover-scale" data-testid="word-cefr">
               {word.cefr}
             </Badge>
           </div>
@@ -78,29 +86,45 @@ export function WordCard({ word, showDate = true, onTakeQuiz, onViewArchive }: W
         </div>
 
         {/* Synonyms and Antonyms */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <h4 className="font-semibold mb-3 text-success">Synonyms</h4>
-            <div className="flex flex-wrap gap-2" data-testid="word-synonyms">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div className="animate-fade-in-left">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-6 h-6 bg-gradient-to-r from-[hsl(var(--education-green))] to-[hsl(var(--success))] rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">+</span>
+              </div>
+              <h4 className="font-bold text-[hsl(var(--education-green))] text-lg">Synonyms</h4>
+            </div>
+            <div className="flex flex-wrap gap-3" data-testid="word-synonyms">
               {word.synonyms.map((synonym, index) => (
                 <Badge 
                   key={index} 
                   variant="outline" 
-                  className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800"
+                  className="bg-gradient-to-r from-[hsl(var(--education-green)/0.1)] to-[hsl(var(--success)/0.1)] text-[hsl(var(--education-green))] border-[hsl(var(--education-green))] hover:animate-pulse hover:bg-[hsl(var(--education-green)/0.2)] hover:scale-105 transition-all duration-300 cursor-pointer font-medium px-3 py-1 hover:shadow-lg hover:shadow-[hsl(var(--education-green)/0.3)]"
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
                 >
                   {synonym}
                 </Badge>
               ))}
             </div>
           </div>
-          <div>
-            <h4 className="font-semibold mb-3 text-destructive">Antonyms</h4>
-            <div className="flex flex-wrap gap-2" data-testid="word-antonyms">
+          <div className="animate-fade-in-left" style={{ animationDelay: '0.2s' }}>
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-6 h-6 bg-gradient-to-r from-[hsl(var(--quiz-incorrect))] to-[hsl(var(--destructive))] rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">−</span>
+              </div>
+              <h4 className="font-bold text-[hsl(var(--quiz-incorrect))] text-lg">Antonyms</h4>
+            </div>
+            <div className="flex flex-wrap gap-3" data-testid="word-antonyms">
               {word.antonyms.map((antonym, index) => (
                 <Badge 
                   key={index} 
                   variant="outline" 
-                  className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800"
+                  className="bg-gradient-to-r from-[hsl(var(--quiz-incorrect)/0.1)] to-[hsl(var(--destructive)/0.1)] text-[hsl(var(--quiz-incorrect))] border-[hsl(var(--quiz-incorrect))] hover:animate-shake hover:bg-[hsl(var(--quiz-incorrect)/0.2)] hover:scale-105 transition-all duration-300 cursor-pointer font-medium px-3 py-1 hover:shadow-lg hover:shadow-[hsl(var(--quiz-incorrect)/0.3)]"
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
                 >
                   {antonym}
                 </Badge>
@@ -111,15 +135,24 @@ export function WordCard({ word, showDate = true, onTakeQuiz, onViewArchive }: W
 
 
         {/* Usage Examples */}
-        <div className="mb-6">
-          <h4 className="font-semibold mb-4 text-lg">Usage Examples</h4>
-          <div className="space-y-4" data-testid="word-examples">
+        <div className="mb-8">
+          <div className="flex items-center space-x-2 mb-6">
+            <BookOpen className="w-6 h-6 text-[hsl(var(--education-blue))]" />
+            <h4 className="font-bold text-[hsl(var(--education-blue))] text-xl">Usage Examples</h4>
+          </div>
+          <div className="space-y-5" data-testid="word-examples">
             {word.examples.map((example, index) => (
-              <div key={index} className="border-l-4 border-primary pl-4 py-2">
-                <p className="mb-2 font-medium">
-                  "{example.english}"
+              <div 
+                key={index} 
+                className="group bg-gradient-to-r from-[hsl(var(--education-blue)/0.05)] to-[hsl(var(--primary)/0.05)] border-l-4 border-[hsl(var(--education-blue))] rounded-r-lg p-4 hover-lift transition-all duration-300 animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <p className="mb-3 font-semibold text-foreground text-lg leading-relaxed">
+                  <span className="text-[hsl(var(--education-blue))] text-2xl font-serif">"</span>
+                  {example.english}
+                  <span className="text-[hsl(var(--education-blue))] text-2xl font-serif">"</span>
                 </p>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-[hsl(var(--education-blue))] text-sm font-medium italic bg-[hsl(var(--education-blue)/0.1)] p-2 rounded">
                   {example.arabic}
                 </p>
               </div>
@@ -128,16 +161,16 @@ export function WordCard({ word, showDate = true, onTakeQuiz, onViewArchive }: W
         </div>
 
         {/* Daily Tip */}
-        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-6">
-          <div className="flex items-start space-x-3">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-              <svg className="w-4 h-4 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
+        <div className="bg-gradient-to-br from-[hsl(var(--education-yellow)/0.15)] to-[hsl(var(--warning)/0.15)] border-2 border-[hsl(var(--education-yellow)/0.3)] rounded-xl p-6 mb-8 hover-glow animate-fade-in-up">
+          <div className="flex items-start space-x-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--education-yellow))] to-[hsl(var(--warning))] rounded-full flex items-center justify-center flex-shrink-0 mt-1 animate-bounce-subtle">
+              <Lightbulb className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <h4 className="font-semibold mb-2 text-primary">Daily Tip</h4>
-              <p className="text-sm text-primary/80 leading-relaxed" data-testid="daily-tip">
+            <div className="flex-1">
+              <h4 className="font-bold text-[hsl(var(--education-yellow))] text-xl mb-3 flex items-center">
+                💡 Daily Learning Tip
+              </h4>
+              <p className="text-foreground leading-relaxed font-medium" data-testid="daily-tip">
                 {word.dailyTip}
               </p>
             </div>
@@ -145,34 +178,32 @@ export function WordCard({ word, showDate = true, onTakeQuiz, onViewArchive }: W
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
           {onTakeQuiz && (
-            <Button 
-              className="flex-1" 
+            <AnimatedButton 
+              className="flex-1 bg-gradient-to-r from-[hsl(var(--education-purple))] to-[hsl(var(--primary))] hover:from-[hsl(var(--primary))] hover:to-[hsl(var(--education-blue))] text-lg py-3 font-bold shadow-lg hover:shadow-xl" 
+              animation="celebration"
               onClick={onTakeQuiz}
               data-testid="take-quiz-button"
             >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-              </svg>
+              <div className="w-6 h-6 mr-3 animate-pulse-badge">🧠</div>
               Take Today's Quiz
-            </Button>
+            </AnimatedButton>
           )}
           {onViewArchive && (
-            <Button 
+            <AnimatedButton 
               variant="secondary" 
-              className="flex-1" 
+              className="flex-1 bg-gradient-to-r from-[hsl(var(--education-green))] to-[hsl(var(--success))] text-white hover:from-[hsl(var(--success))] hover:to-[hsl(var(--education-blue))] text-lg py-3 font-bold shadow-lg hover:shadow-xl" 
+              animation="hover-lift"
               onClick={onViewArchive}
               data-testid="browse-archive-button"
             >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-              </svg>
+              <div className="w-6 h-6 mr-3">📚</div>
               Browse Archive
-            </Button>
+            </AnimatedButton>
           )}
         </div>
       </CardContent>
-    </Card>
+    </AnimatedCard>
   );
 }

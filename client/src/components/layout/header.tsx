@@ -3,6 +3,8 @@ import { Link, useLocation } from "wouter";
 import { useTheme } from "@/hooks/use-theme";
 import { useUserProgress } from "@/hooks/use-user-progress";
 import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { ZainLogo } from "@/components/ui/zain-logo";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -32,11 +34,8 @@ export function Header() {
 
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">Z</span>
-          </div>
-          <h1 className="font-bold text-xl">Zain Linguo</h1>
+        <Link href="/" className="hover-scale">
+          <ZainLogo size="sm" animated={false} showText={true} />
         </Link>
 
         {/* Desktop Navigation */}
@@ -59,26 +58,28 @@ export function Header() {
 
         {/* Theme Toggle & Mobile Menu */}
         <div className="flex items-center space-x-2">
-          <Button
+          <AnimatedButton
             variant="ghost"
             size="icon"
+            animation="hover-glow"
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             data-testid="theme-toggle"
           >
             <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Toggle theme</span>
-          </Button>
+          </AnimatedButton>
 
           {isMobile && (
-            <Button
+            <AnimatedButton
               variant="ghost"
               size="icon"
+              animation="hover-scale"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="mobile-menu-toggle"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            </AnimatedButton>
           )}
         </div>
       </div>
