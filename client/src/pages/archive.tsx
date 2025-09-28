@@ -146,12 +146,6 @@ export default function Archive() {
           </Card>
         ))}
 
-        {/* AdSense Between Archive Items */}
-        {filteredWords.length >= 4 && (
-          <div className="ad-placeholder h-32 rounded-lg col-span-1 md:col-span-2 flex items-center justify-center text-sm">
-            AdSense Archive Ad - ca-pub-XXXXXXXX slot="XXXXXXXX"
-          </div>
-        )}
       </div>
 
       {/* No Results */}

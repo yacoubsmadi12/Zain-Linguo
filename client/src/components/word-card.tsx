@@ -109,10 +109,6 @@ export function WordCard({ word, showDate = true, onTakeQuiz, onViewArchive }: W
           </div>
         </div>
 
-        {/* AdSense In-Content Ad */}
-        <div className="ad-placeholder h-32 mb-6 rounded-lg flex items-center justify-center text-sm">
-          AdSense In-Content - ca-pub-XXXXXXXX slot="XXXXXXXX"
-        </div>
 
         {/* Usage Examples */}
         <div className="mb-6">

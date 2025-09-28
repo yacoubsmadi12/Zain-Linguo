@@ -25,10 +25,6 @@ export function Sidebar() {
 
   return (
     <div className="space-y-6">
-      {/* AdSense Sidebar Ad */}
-      <div className="ad-placeholder h-96 rounded-lg sticky top-24 flex items-center justify-center text-sm">
-        AdSense Sidebar - ca-pub-XXXXXXXX slot="XXXXXXXX"
-      </div>
 
       {/* Quick Stats */}
       <Card>
