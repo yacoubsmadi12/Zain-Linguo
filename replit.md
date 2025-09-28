@@ -1,8 +1,8 @@
-# Daily English Word - Language Learning Platform
+# Zain Linguo - Corporate Language Learning Platform
 
 ## Overview
 
-Daily English Word is a modern web platform designed to help users learn one powerful English word each day. The application features AI-powered content generation using Google's Gemini API, interactive quizzes, progress tracking, and a clean, responsive interface. Built with a full-stack TypeScript architecture, it provides a comprehensive vocabulary learning experience with gamification elements and monetization readiness through AdSense integration.
+Zain Linguo is a modern corporate language learning platform designed to empower teams with enhanced English communication skills. The application features AI-powered content generation using Google's Gemini API, interactive quizzes, progress tracking, and a clean, responsive interface. Built with a full-stack TypeScript architecture, it provides a comprehensive language learning experience with department-specific learning paths, team progress tracking, and gamification elements.
 
 ## User Preferences
 
@@ -43,11 +43,12 @@ Preferred communication style: Simple, everyday language.
 - **Multilingual Support**: English-Arabic translation pairs for examples
 
 ### Application Features
-- **Daily Word System**: Automated generation and caching of daily vocabulary
+- **Department-specific Learning Paths**: Customized content for different corporate departments
+- **Team Progress Tracking**: Monitor collective learning progress across departments
 - **Interactive Quizzes**: Multiple-choice questions with immediate feedback
-- **Progress Tracking**: Streak counting, achievement badges, and performance analytics
-- **Archive System**: Historical word lookup with pagination
-- **Contact System**: User feedback collection with form validation
+- **AI-powered Daily Vocabulary**: Automated generation and caching of relevant business vocabulary
+- **Progress Analytics**: Streak counting, achievement badges, and performance metrics
+- **Learning Archive**: Historical content lookup with search capabilities
 
 ### Performance Optimizations
 - **Query Caching**: Infinite stale time for static content
