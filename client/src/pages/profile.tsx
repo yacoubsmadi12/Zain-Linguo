@@ -34,15 +34,15 @@ export default function Profile() {
     onSuccess: () => {
       queryClient.clear(); // Clear all cache
       toast({
-        title: "تم تسجيل الخروج بنجاح",
-        description: "نراك قريباً في رحلة التعلم!",
+        title: "Successfully logged out",
+        description: "See you soon in your learning journey!",
       });
       setLocation("/auth");
     },
     onError: (error) => {
       toast({
-        title: "خطأ في تسجيل الخروج",
-        description: error instanceof Error ? error.message : "حدث خطأ غير متوقع",
+        title: "Logout failed",
+        description: error instanceof Error ? error.message : "An unexpected error occurred",
         variant: "destructive",
       });
     },
@@ -74,12 +74,12 @@ export default function Profile() {
           <CardContent className="pt-6">
             <div className="flex flex-col items-center space-y-4">
               <Shield className="h-12 w-12 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">غير مخول للوصول</h2>
+              <h2 className="text-lg font-semibold">Access Denied</h2>
               <p className="text-sm text-muted-foreground text-center">
-                يرجى تسجيل الدخول للوصول إلى ملفك الشخصي
+                Please log in to access your profile
               </p>
               <Button onClick={() => setLocation("/auth")} data-testid="button-login">
-                تسجيل الدخول
+                Sign In
               </Button>
             </div>
           </CardContent>
@@ -89,7 +89,7 @@ export default function Profile() {
   }
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('ar-EG', {
+    return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -134,23 +134,23 @@ export default function Profile() {
             <div className="space-y-4">
               <h3 className="font-semibold text-lg flex items-center">
                 <Settings className="h-5 w-5 mr-2" />
-                معلومات الحساب
+                Account Information
               </h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">اسم المستخدم:</span>
+                  <span className="text-sm text-muted-foreground">Username:</span>
                   <span className="font-medium" data-testid="info-username">{user.username}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">البريد الإلكتروني:</span>
+                  <span className="text-sm text-muted-foreground">Email:</span>
                   <span className="font-medium" data-testid="info-email">{user.email}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">القسم:</span>
+                  <span className="text-sm text-muted-foreground">Department:</span>
                   <span className="font-medium" data-testid="info-department">{user.department}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">تاريخ الانضمام:</span>
+                  <span className="text-sm text-muted-foreground">Join Date:</span>
                   <span className="font-medium" data-testid="info-created-at">
                     {formatDate(user.createdAt.toString())}
                   </span>
@@ -162,13 +162,13 @@ export default function Profile() {
             <div className="space-y-4">
               <h3 className="font-semibold text-lg flex items-center">
                 <Building className="h-5 w-5 mr-2" />
-                معلومات القسم
+                Department Information
               </h3>
               <div className="p-4 bg-gradient-to-br from-[hsl(var(--education-purple)/0.05)] to-[hsl(var(--primary)/0.05)] rounded-lg border border-[hsl(var(--education-purple)/0.1)]">
                 <div className="text-center">
                   <h4 className="font-medium text-lg mb-2">{user.department}</h4>
                   <p className="text-sm text-muted-foreground">
-                    لديك إمكانية الوصول إلى المحتوى الخاص بقسمك
+                    You have access to content specific to your department
                   </p>
                 </div>
               </div>
@@ -180,7 +180,7 @@ export default function Profile() {
       {/* Account Actions */}
       <Card>
         <CardHeader>
-          <CardTitle>إجراءات الحساب</CardTitle>
+          <CardTitle>Account Actions</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-4">
@@ -192,14 +192,14 @@ export default function Profile() {
               data-testid="button-logout"
             >
               <LogOut className="h-4 w-4 mr-2" />
-              {logoutMutation.isPending ? "جاري تسجيل الخروج..." : "تسجيل الخروج"}
+              {logoutMutation.isPending ? "Logging out..." : "Sign Out"}
             </Button>
           </div>
           
           <Separator />
           
           <div className="text-sm text-muted-foreground">
-            <p>💡 <strong>نصيحة:</strong> يمكنك الوصول إلى جميع ميزات منصة التعلم من خلال القائمة العلوية.</p>
+            <p>💡 <strong>Tip:</strong> You can access all learning platform features through the top navigation menu.</p>
           </div>
         </CardContent>
       </Card>

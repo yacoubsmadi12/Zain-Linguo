@@ -94,7 +94,7 @@ export function Header() {
                     data-testid="link-profile"
                   >
                     <User className="h-4 w-4 mr-2" />
-                    الملف الشخصي
+                    Profile
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -104,7 +104,7 @@ export function Header() {
                   data-testid="button-logout-header"
                 >
                   <LogOut className="h-4 w-4 mr-2" />
-                  تسجيل الخروج
+                  Sign Out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -118,7 +118,7 @@ export function Header() {
             >
               <Link href="/auth">
                 <LogIn className="h-4 w-4 mr-2" />
-                تسجيل الدخول
+                Sign In
               </Link>
             </Button>
           )}
@@ -180,7 +180,7 @@ export function Header() {
                     data-testid="link-profile-mobile"
                   >
                     <User className="h-4 w-4 mr-2" />
-                    الملف الشخصي ({user.username})
+                    Profile ({user.username})
                   </Link>
                   <button
                     onClick={() => {
@@ -191,7 +191,7 @@ export function Header() {
                     data-testid="button-logout-mobile"
                   >
                     <LogOut className="h-4 w-4 mr-2" />
-                    تسجيل الخروج
+                    Sign Out
                   </button>
                 </>
               ) : (
@@ -202,7 +202,7 @@ export function Header() {
                   data-testid="link-login-mobile"
                 >
                   <LogIn className="h-4 w-4 mr-2" />
-                  تسجيل الدخول
+                  Sign In
                 </Link>
               )}
             </div>
