@@ -4,8 +4,11 @@ import { storage } from "./storage";
 import { generateDailyWord } from "./services/gemini";
 import { insertContactSubmissionSchema } from "@shared/schema";
 import { z } from "zod";
+import { setupAuth } from "./auth"; // Authentication setup - based on javascript_auth_all_persistance blueprint
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Setup authentication routes (/api/register, /api/login, /api/logout, /api/user)
+  setupAuth(app);
   
   // Get today's word
   app.get("/api/word/today", async (req, res) => {

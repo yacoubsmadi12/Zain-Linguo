@@ -1,5 +1,9 @@
-import { type Word, type InsertWord, type QuizQuestion, type InsertQuizQuestion, type ContactSubmission, type InsertContactSubmission, type WordWithQuestions } from "@shared/schema";
+import { type Word, type InsertWord, type QuizQuestion, type InsertQuizQuestion, type ContactSubmission, type InsertContactSubmission, type WordWithQuestions, type User, type InsertUser } from "@shared/schema";
 import { randomUUID } from "crypto";
+import session from "express-session";
+import createMemoryStore from "memorystore";
+
+const MemoryStore = createMemoryStore(session);
 
 export interface IStorage {
   // Word operations
@@ -16,17 +20,33 @@ export interface IStorage {
 
   // Contact operations
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
+
+  // Authentication operations - based on javascript_auth_all_persistance blueprint
+  getUserByUsername(username: string): Promise<User | undefined>;
+  createUser(user: InsertUser): Promise<User>;
+  getUser(id: number): Promise<User | undefined>;
+  sessionStore: session.Store;
 }
 
 export class MemStorage implements IStorage {
   private words: Map<string, Word>;
   private quizQuestions: Map<string, QuizQuestion>;
   private contactSubmissions: Map<string, ContactSubmission>;
+  private users: Map<number, User>;
+  private usersByUsername: Map<string, User>;
+  private nextUserId: number;
+  public sessionStore: session.Store;
 
   constructor() {
     this.words = new Map();
     this.quizQuestions = new Map();
     this.contactSubmissions = new Map();
+    this.users = new Map();
+    this.usersByUsername = new Map();
+    this.nextUserId = 1;
+    this.sessionStore = new MemoryStore({
+      checkPeriod: 86400000, // prune expired entries every 24h
+    });
   }
 
   async getWordByDate(date: string): Promise<Word | undefined> {
@@ -109,6 +129,30 @@ export class MemStorage implements IStorage {
     };
     this.contactSubmissions.set(id, submission);
     return submission;
+  }
+
+  // Authentication methods - based on javascript_auth_all_persistance blueprint
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    return this.usersByUsername.get(username);
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const id = this.nextUserId++;
+    const user: User = {
+      id,
+      username: insertUser.username,
+      email: insertUser.email,
+      password: insertUser.password,
+      department: insertUser.department,
+      createdAt: new Date(),
+    };
+    this.users.set(id, user);
+    this.usersByUsername.set(insertUser.username, user);
+    return user;
+  }
+
+  async getUser(id: number): Promise<User | undefined> {
+    return this.users.get(id);
   }
 }
 

@@ -4,6 +4,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/hooks/use-auth"; // Authentication - based on javascript_auth_all_persistance blueprint
+import { ProtectedRoute } from "@/lib/protected-route";
 import { Header } from "@/components/layout/header";
 import { Sidebar } from "@/components/layout/sidebar";
 import Home from "@/pages/home";
@@ -11,16 +13,18 @@ import Quiz from "@/pages/quiz";
 import Archive from "@/pages/archive";
 import Progress from "@/pages/progress";
 import About from "@/pages/about";
+import AuthPage from "@/pages/auth-page";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/quiz" component={Quiz} />
-      <Route path="/archive" component={Archive} />
-      <Route path="/progress" component={Progress} />
-      <Route path="/about" component={About} />
+      <ProtectedRoute path="/" component={Home} />
+      <ProtectedRoute path="/quiz" component={Quiz} />
+      <ProtectedRoute path="/archive" component={Archive} />
+      <ProtectedRoute path="/progress" component={Progress} />
+      <ProtectedRoute path="/about" component={About} />
+      <Route path="/auth" component={AuthPage} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -29,9 +33,10 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <TooltipProvider>
-          <Toaster />
+      <AuthProvider>
+        <ThemeProvider>
+          <TooltipProvider>
+            <Toaster />
           <div className="min-h-screen bg-background text-foreground font-sans antialiased transition-colors duration-300">
             <Header />
             <main className="container mx-auto px-4 py-8 max-w-7xl">
@@ -51,12 +56,12 @@ function App() {
                 <div className="text-center">
                   <div className="flex items-center justify-center space-x-2 mb-4">
                     <div className="w-6 h-6 bg-primary rounded-lg flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold text-sm">W</span>
+                      <span className="text-primary-foreground font-bold text-sm">Z</span>
                     </div>
-                    <span className="font-semibold">Daily English Word</span>
+                    <span className="font-semibold">Zain Linguo</span>
                   </div>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Powered by AI • Learn one powerful word every day
+                    Powered by AI • Corporate Language Learning Platform
                   </p>
                   <div className="flex justify-center space-x-6 text-sm text-muted-foreground">
                     <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
@@ -64,14 +69,15 @@ function App() {
                     <a href="#" className="hover:text-foreground transition-colors">Support</a>
                   </div>
                   <p className="text-xs text-muted-foreground mt-4">
-                    © 2024 Daily English Word. All rights reserved.
+                    © 2024 Zain Linguo - Zain Jordan. All rights reserved.
                   </p>
                 </div>
               </div>
             </footer>
           </div>
-        </TooltipProvider>
-      </ThemeProvider>
+          </TooltipProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

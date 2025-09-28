@@ -34,9 +34,9 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">W</span>
+            <span className="text-primary-foreground font-bold text-lg">Z</span>
           </div>
-          <h1 className="font-bold text-xl">Daily English Word</h1>
+          <h1 className="font-bold text-xl">Zain Linguo</h1>
         </Link>
 
         {/* Desktop Navigation */}
