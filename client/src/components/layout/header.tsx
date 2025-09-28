@@ -2,16 +2,25 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useTheme } from "@/hooks/use-theme";
 import { useUserProgress } from "@/hooks/use-user-progress";
+import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { ZainLogo } from "@/components/ui/zain-logo";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator
+} from "@/components/ui/dropdown-menu";
+import { Sun, Moon, Menu, X, User, LogOut, LogIn } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Header() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const { theme, setTheme } = useTheme();
   const { progress } = useUserProgress();
+  const { user, logoutMutation } = useAuth();
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -22,6 +31,10 @@ export function Header() {
     { id: "progress", label: "Progress", path: "/progress" },
     { id: "about", label: "About", path: "/about" },
   ];
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
 
   const isActive = (path: string) => {
     if (path === "/" && location === "/") return true;
@@ -56,8 +69,60 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Theme Toggle & Mobile Menu */}
+        {/* User Actions & Theme Toggle */}
         <div className="flex items-center space-x-2">
+          {/* User Menu */}
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <AnimatedButton 
+                  variant="ghost" 
+                  size="sm" 
+                  animation="hover-glow"
+                  className="hidden md:flex items-center space-x-2"
+                  data-testid="user-menu-trigger"
+                >
+                  <User className="h-4 w-4" />
+                  <span className="text-sm font-medium">{user.username}</span>
+                </AnimatedButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem asChild>
+                  <Link 
+                    href="/profile" 
+                    className="flex items-center w-full"
+                    data-testid="link-profile"
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    الملف الشخصي
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={handleLogout}
+                  className="flex items-center text-destructive focus:text-destructive"
+                  data-testid="button-logout-header"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  تسجيل الخروج
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              asChild 
+              className="hidden md:flex"
+              data-testid="button-login-header"
+            >
+              <Link href="/auth">
+                <LogIn className="h-4 w-4 mr-2" />
+                تسجيل الدخول
+              </Link>
+            </Button>
+          )}
+
           <AnimatedButton
             variant="ghost"
             size="icon"
@@ -103,6 +168,44 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            
+            {/* Mobile User Actions */}
+            <div className="border-t border-border pt-2 mt-2 space-y-2">
+              {user ? (
+                <>
+                  <Link
+                    href="/profile"
+                    className="flex items-center w-full py-2 px-3 rounded-lg hover:bg-accent"
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid="link-profile-mobile"
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    الملف الشخصي ({user.username})
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center w-full py-2 px-3 rounded-lg hover:bg-accent text-destructive"
+                    data-testid="button-logout-mobile"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    تسجيل الخروج
+                  </button>
+                </>
+              ) : (
+                <Link
+                  href="/auth"
+                  className="flex items-center w-full py-2 px-3 rounded-lg hover:bg-accent"
+                  onClick={() => setMobileMenuOpen(false)}
+                  data-testid="link-login-mobile"
+                >
+                  <LogIn className="h-4 w-4 mr-2" />
+                  تسجيل الدخول
+                </Link>
+              )}
+            </div>
           </nav>
         </div>
       )}

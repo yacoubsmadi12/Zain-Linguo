@@ -15,6 +15,7 @@ import Quiz from "@/pages/quiz";
 import Archive from "@/pages/archive";
 import Progress from "@/pages/progress";
 import About from "@/pages/about";
+import Profile from "@/pages/profile";
 import AuthPage from "@/pages/auth-page";
 import NotFound from "@/pages/not-found";
 
@@ -26,6 +27,7 @@ function Router() {
       <ProtectedRoute path="/archive" component={Archive} />
       <ProtectedRoute path="/progress" component={Progress} />
       <ProtectedRoute path="/about" component={About} />
+      <ProtectedRoute path="/profile" component={Profile} />
       <Route path="/auth" component={AuthPage} />
       <Route component={NotFound} />
     </Switch>
